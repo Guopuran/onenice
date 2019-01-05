@@ -191,21 +191,17 @@ public class HomeSeekFragment extends BaseFragment implements IView {
         popupWindow.setOutsideTouchable(true);
         // 设置此参数获得焦点，否则无法点击，即：事件拦截消费
         popupWindow.setFocusable(true);
-
         // 实例化一个ColorDrawable颜色
-
         ColorDrawable dw = new ColorDrawable(getActivity().getResources().getColor(R.color.colorpop));
-
         // 设置弹出窗体的背景
-
         popupWindow.setBackgroundDrawable(dw);
-        //popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 
         seek_navigation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 seek_navigation_xrecy.setVisibility(View.VISIBLE);
                 initOneUrl();
+                initTwoUrl("1001002");
                getOthreVisibility();
                 popupWindow.showAsDropDown(v,0,25);
             }
@@ -305,11 +301,12 @@ public class HomeSeekFragment extends BaseFragment implements IView {
                 break;
             case "navigation":
                 View vv= (View) msgBean.getObject();
-                //seek_navigation_lin.setVisibility(View.VISIBLE);
                 seek_navigation_xrecy.setVisibility(View.VISIBLE);
                 getOthreVisibility();
                 popupWindow.showAsDropDown(vv,0,25);
                 initOneUrl();
+                initTwoUrl("1001002");
+                initTwoShopUrl("1001002001",1);
                 break;
             default:break;
         }

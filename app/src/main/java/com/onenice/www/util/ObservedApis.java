@@ -3,6 +3,7 @@ package com.onenice.www.util;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
@@ -23,5 +24,6 @@ public interface ObservedApis {
 
     @POST
     Observable<ResponseBody> post(@Url String url, @QueryMap Map<String,String> parmas);
-
+    @DELETE
+    Observable<ResponseBody> delete(@Url String url);
 }

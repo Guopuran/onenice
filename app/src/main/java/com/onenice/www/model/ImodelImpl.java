@@ -61,6 +61,27 @@ public class ImodelImpl implements Imodel {
         });
     }
 
+    @Override
+    public void deleteRequestModel(String url, final Class clazz, final ModelCallBack callBack) {
+        if (!isNetWork()){
+            callBack.failure("网络状态不可用");
+            return;
+        }
+        RetrofitUtil.getInstance().delete(url, new RetrofitUtil.ICallBack() {
+            @Override
+            public void success(String result) {
+                Object object = getGson(result, clazz);
+                callBack.success(object);
+            }
+
+            @Override
+            public void failure(String error) {
+                callBack.failure(error);
+            }
+        });
+
+    }
+
     //gson解析
     private Object getGson(String result, Class clazz) {
         Object o = new Gson().fromJson(result, clazz);

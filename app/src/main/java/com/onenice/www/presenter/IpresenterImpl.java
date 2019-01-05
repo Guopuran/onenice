@@ -76,4 +76,20 @@ public class IpresenterImpl implements Ipresenter{
         });
     }
 
+    @Override
+    public void deleteRequestIpresenter(String url, Class clazz) {
+        mImodelImpl.deleteRequestModel(url , clazz , new ModelCallBack() {
+
+            @Override
+            public void success(Object object) {
+                mIView.success(object);
+            }
+
+            @Override
+            public void failure(String error) {
+                mIView.failure(error);
+            }
+        });
+    }
+
 }

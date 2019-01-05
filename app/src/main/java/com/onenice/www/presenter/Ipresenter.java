@@ -16,4 +16,6 @@ public interface Ipresenter {
 
     //post请求
     void postRequestIpresenter(String url, Map<String,String> params,Class clazz);
+    //get请求
+    void deleteRequestIpresenter(String url, Class clazz);
 }

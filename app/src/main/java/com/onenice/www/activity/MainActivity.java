@@ -1,6 +1,7 @@
 package com.onenice.www.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,6 +11,7 @@ import android.widget.RadioGroup;
 
 import com.onenice.www.R;
 import com.onenice.www.base.BaseActivity;
+import com.onenice.www.bean.LoginBean;
 import com.onenice.www.customview.CustomViewpagerMain;
 import com.onenice.www.fragment.BillFragment;
 import com.onenice.www.fragment.CircleFragment;
@@ -17,6 +19,7 @@ import com.onenice.www.fragment.HomeFragment;
 import com.onenice.www.fragment.MyFragment;
 import com.onenice.www.fragment.ShopFragment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +35,8 @@ public class MainActivity extends BaseActivity {
     private RadioGroup group_bottom;
     private CustomViewpagerMain main_viewPager;
     private List<Fragment> list;
+    private LoginBean.ResultBean result;
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_main;
@@ -44,7 +49,13 @@ public class MainActivity extends BaseActivity {
         main_viewPager = findViewById(R.id.main_viewpager);
         list=new ArrayList<>();
 
+        Intent intent=getIntent();
+        result = (LoginBean.ResultBean) intent.getSerializableExtra("result");
 
+    }
+
+    public LoginBean.ResultBean getResult(){
+        return result;
     }
 
     @Override

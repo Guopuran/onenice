@@ -212,9 +212,22 @@ public class LoginActivity extends BaseActivity implements IView {
     public void success(Object object) {
         if (object instanceof LoginBean){
             LoginBean loginBean= (LoginBean) object;
-            //跳转到主界面进行商品展示
-            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-            startActivity(intent);
+            if(loginBean.getStatus().equals("0000")) {
+                LoginBean.ResultBean result = loginBean.getResult();
+                edit.putString("sessionId", result.getSessionId());
+                edit.putString("userId", result.getUserId()+"");
+                edit.commit();
+
+                //跳转到主界面进行商品展示
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                // intent.putExtra("result",result);
+                startActivity(intent);
+                Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+                finish();
+            }else{
+                Toast.makeText(this, loginBean.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 

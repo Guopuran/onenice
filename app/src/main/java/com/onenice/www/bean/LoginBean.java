@@ -1,4 +1,7 @@
 package com.onenice.www.bean;
+
+import java.io.Serializable;
+
 /**
  *
  * @详情 登录的bean类
@@ -6,7 +9,7 @@ package com.onenice.www.bean;
  * @创建日期 2018/12/30 8:39
  *
  */
-public class LoginBean {
+public class LoginBean implements Serializable {
 
     private ResultBean result;
     private String message;
@@ -36,7 +39,7 @@ public class LoginBean {
         this.status = status;
     }
 
-    public static class ResultBean {
+    public static class ResultBean  {
         /**
          * headPic : http://172.17.8.100/images/small/head_pic/2018-11-21/20181121100733.jpg
          * nickName : OP_8mY65

@@ -28,4 +28,12 @@ public class Apis {
     public static final String SHOW_NAV_TWO_URL="commodity/v1/findSecondCategory?firstCategoryId=%s";
     //查询二级商品的接口
     public static final String SHOW_NAV_TWO_SHOP_URL="commodity/v1/findCommodityByCategory?categoryId=%s&page=%d&count=%d";
+    //查询圈子列表接口
+    public static final String SHOW_CIRCLE_LIST_URL="circle/v1/findCircleList?page=%d&count=%d";
+    //圈子点赞接口
+    public static final String SHOW_CIRCLE_LIKE_URL="circle/verify/v1/addCircleGreat";
+    //圈子取消点赞接口
+    public static final String SHOW_CIRCLE_CANCEL_URL="circle/verify/v1/cancelCircleGreat?circleId=%d";
+
+
 }

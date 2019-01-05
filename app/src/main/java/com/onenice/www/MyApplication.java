@@ -1,19 +1,20 @@
 package com.onenice.www;
 
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Point;
 import android.view.WindowManager;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 public class MyApplication extends Application {
-    public static MyApplication instance;
+    public static Context instance;
     //绘制页面时参照的设计图宽度
     public final static float DESIGN_WIDTH = 750;
     @Override
     public void onCreate() {
         super.onCreate();
-        instance=this;
+        instance=getApplicationContext();
         //沉浸式状态栏
         immersive();
         //初始化Fresco
@@ -31,7 +32,7 @@ public class MyApplication extends Application {
         getResources().getDisplayMetrics().xdpi=mPoint.x/DESIGN_WIDTH*72f;
     }
 
-    public static MyApplication getContext(){
+    public static Context getContext(){
         return instance;
     }
 }

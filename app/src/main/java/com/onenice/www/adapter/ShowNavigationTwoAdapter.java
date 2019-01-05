@@ -62,7 +62,6 @@ public class ShowNavigationTwoAdapter extends RecyclerView.Adapter<ShowNavigatio
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    item_two_name.setTextColor(Color.parseColor("#ff5f71"));
                     EventBus.getDefault().post(new ShowNavigationMsgBean(resultBean.getId(),"two"));
                 }
             });
