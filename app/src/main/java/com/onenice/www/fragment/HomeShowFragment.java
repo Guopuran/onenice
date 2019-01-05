@@ -231,7 +231,7 @@ public class HomeShowFragment extends BaseFragment implements View.OnClickListen
                 break;
             //导航搜索
             case R.id.show_navigation:
-
+                EventBus.getDefault().post(new ShowShopMsgBean(v,"navigation"));
                 break;
             //搜索框搜索
             case R.id.show_search:
