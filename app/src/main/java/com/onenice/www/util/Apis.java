@@ -34,6 +34,38 @@ public class Apis {
     public static final String SHOW_CIRCLE_LIKE_URL="circle/verify/v1/addCircleGreat";
     //圈子取消点赞接口
     public static final String SHOW_CIRCLE_CANCEL_URL="circle/verify/v1/cancelCircleGreat?circleId=%d";
-
-
+    //商品详情接口
+    public static final String SHOW_Particulars_URL="commodity/v1/findCommodityDetailsById?commodityId=%d";
+    //加入购物车的接口
+    public static final String SHOW_ADD_SHOP_URL="order/verify/v1/syncShoppingCart";
+    //查询购物车的接口
+    public static final String SHOW_SELECT_SHOP_URL="order/verify/v1/findShoppingCart";
+    //查询收货地址的接口
+    public static final String SHOW_SELECT_ADDRESS_URL="user/verify/v1/receiveAddressList";
+    //创建订单的接口
+    public static final String SHOW_CREATION_SHOP_URL="order/verify/v1/createOrder";
+    //查询订单的接口
+    public static final String SHOW_BILL_SHOP_URL="order/verify/v1/findOrderListByStatus?status=%d&page=%d&count=%d";
+    //删除订单的接口
+    public static final String SHOW_DELETE_BILL_URL="order/verify/v1/deleteOrder?orderId=%s";
+    //修改收货地址的接口
+    public static final String SHOW_UPDATE_ADDRESS_URL="user/verify/v1/changeReceiveAddress";
+    //新增收货地址的接口
+    public static final String SHOW_ADD_ADDRESS_URL="user/verify/v1/addReceiveAddress";
+    //设置默认地址的接口
+    public static final String SHOW_DEFAULT_ADDRESS_URL="user/verify/v1/setDefaultReceiveAddress";
+    //去支付的接口
+    public static final String SHOW_PAY_SHOP_URL="order/verify/v1/pay";
+    //收货的接口
+    public static final String SHOW_NEXT_SHOP_URL="order/verify/v1/confirmReceipt";
+    //我的足迹的接口
+    public static final String SHOW_FOOT_SHOP_URL="commodity/verify/v1/browseList?page=%d&count=%d";
+    //查询钱包的接口
+    public static final String SHOW_SELECT_MONEY_URL="user/verify/v1/findUserWallet?page=%d&count=%d";
+    //查询用户的接口
+    public static final String SHOW_SELECT_ID_URL="user/verify/v1/getUserById";
+    //修改昵称的接口
+    public static final String SHOW_UPDATE_NAME_URL="user/verify/v1/modifyUserNick";
+    //修改密码的接口
+    public static final String SHOW_UPDATE_PASS_URL="user/verify/v1/modifyUserPwd";
 }

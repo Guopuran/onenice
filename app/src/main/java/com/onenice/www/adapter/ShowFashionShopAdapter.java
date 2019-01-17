@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.onenice.www.R;
 import com.onenice.www.base.ShowShopBean;
+import com.onenice.www.bean.ComMsgBean;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,10 +65,17 @@ public class ShowFashionShopAdapter extends RecyclerView.Adapter<ShowFashionShop
             new_price=itemView.findViewById(R.id.item_fashion_price);
         }
 
-        public void getdata(ShowShopBean.ResultBean.MlssBean.CommodityListBeanXX item, Context context, int i) {
+        public void getdata(final ShowShopBean.ResultBean.MlssBean.CommodityListBeanXX item, Context context, int i) {
             new_image.setImageURI(Uri.parse(item.getMasterPic()));
             new_name.setText(item.getCommodityName());
             new_price.setText("￥"+item.getPrice());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    EventBus.getDefault().post(new ComMsgBean(item.getCommodityId(),"par"));
+                }
+            });
         }
     }
 }

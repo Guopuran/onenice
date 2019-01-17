@@ -157,6 +157,7 @@ public class HomeShowFragment extends BaseFragment implements View.OnClickListen
         //设置适配器
         showNewShopAdapter = new ShowNewShopAdapter(getActivity());
         show_new_recy.setAdapter(showNewShopAdapter);
+
     }
 
     private void initShopUrl() {
@@ -250,7 +251,7 @@ public class HomeShowFragment extends BaseFragment implements View.OnClickListen
     public void onDestroy() {
         super.onDestroy();
         //解绑
-        mIpresenterImpl.Deatch();
+        mIpresenterImpl.deatch();
     }
 
     @Override

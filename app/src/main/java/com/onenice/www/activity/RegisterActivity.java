@@ -165,7 +165,7 @@ public class RegisterActivity extends BaseActivity implements IView {
     protected void onDestroy() {
         super.onDestroy();
         //解绑
-        mIpresenterImpl.Deatch();
+        mIpresenterImpl.deatch();
     }
 
     @Override

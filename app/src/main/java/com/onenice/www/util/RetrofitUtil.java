@@ -42,7 +42,7 @@ public class RetrofitUtil {
         return instance;
     }
 
-    public RetrofitUtil(){
+    private RetrofitUtil(){
         //拦截器
         HttpLoggingInterceptor interceptor=new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -119,6 +119,17 @@ public class RetrofitUtil {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getObserver(callBack));
 
+    }
+
+    //put请求
+    public void put(String url, Map<String,String> params,ICallBack callBack){
+        if (params==null){
+            params=new HashMap<>();
+        }
+        mObservedApis.put(url,params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getObserver(callBack));
     }
 
 

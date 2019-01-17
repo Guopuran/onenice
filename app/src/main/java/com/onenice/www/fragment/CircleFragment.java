@@ -3,6 +3,7 @@ package com.onenice.www.fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,7 +22,13 @@ import com.onenice.www.view.IView;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ *
+ * @描述 朋友圈模块
+ *
+ * @创建日期 2019/1/9 10:54
+ *
+ */
 public class CircleFragment extends BaseFragment implements IView {
 
     private XRecyclerView circle_xrecy;
@@ -47,9 +54,17 @@ public class CircleFragment extends BaseFragment implements IView {
         initPresenter();
         initXrecy();
     }
-
+    //互绑
     private void initPresenter() {
         mIpresenterImpl=new IpresenterImpl(this);
+    }
+    //解绑
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //解绑
+        mIpresenterImpl.deatch();
     }
 
     private void initXrecy() {
@@ -85,20 +100,7 @@ public class CircleFragment extends BaseFragment implements IView {
         });
         initCircleUrl(circle_page);
 
-        circleListAdapter.setOnClick(new CircleListAdapter.OnClick() {
-            @Override
-            public void getdata(int id, int great, int position) {
-                if (great==1){
-                    //flag为true,已点赞，需取消
-                    cancelCircleUrl(id);
-                    circleListAdapter.getcancel(position);
-                }else{
-                    //flag为false，未点赞，需点赞
-                    needlCircleUrl(id);
-                    circleListAdapter.getlike(position);
-                }
-            }
-        });
+
     }
 
     private void needlCircleUrl(int id) {
@@ -134,15 +136,60 @@ public class CircleFragment extends BaseFragment implements IView {
             }else{
                 circle_flag=false;
             }
+            circleListAdapter.setOnClick(new CircleListAdapter.OnClick() {
+                @Override
+                public void getdata(int id, int great, int position) {
+                    if (great==1){
+                        //已点赞，需取消
+                        cancelCircleUrl(id);
+                        circleListAdapter.getcancel(position);
+                    }else{
+                        //未点赞，需点赞
+                        needlCircleUrl(id);
+                        circleListAdapter.getlike(position);
+                    }
+                }
+            });
         }
         if (object instanceof CircleLikeBean){
             CircleLikeBean circleLikeBean= (CircleLikeBean) object;
             Toast.makeText(getActivity(), circleLikeBean.getMessage(), Toast.LENGTH_SHORT).show();
+
         }
     }
 
     @Override
     public void failure(String error) {
         Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+    }
+    private long exitTime=0;
+    private void getFocus() {
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+
+                    //双击退出
+                    if (System.currentTimeMillis() - exitTime > 2000) {
+                        Toast.makeText(getActivity(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                        exitTime = System.currentTimeMillis();
+                    } else {
+                        getActivity().finish();
+                        System.exit(0);
+                    }
+                    return true;
+                }
+
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getFocus();
     }
 }

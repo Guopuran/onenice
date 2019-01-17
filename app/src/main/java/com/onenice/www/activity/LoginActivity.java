@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,7 @@ import com.onenice.www.util.Apis;
 import com.onenice.www.util.RegularUtil;
 import com.onenice.www.view.IView;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -136,6 +139,7 @@ public class LoginActivity extends BaseActivity implements IView {
                     if (event.getX() == x || event.getY() == y) {
                         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 }
                 return true;
@@ -205,7 +209,7 @@ public class LoginActivity extends BaseActivity implements IView {
     protected void onDestroy() {
         super.onDestroy();
         //解绑
-        mIpresenterImpl.Deatch();
+        mIpresenterImpl.deatch();
     }
 
     @Override
@@ -214,13 +218,14 @@ public class LoginActivity extends BaseActivity implements IView {
             LoginBean loginBean= (LoginBean) object;
             if(loginBean.getStatus().equals("0000")) {
                 LoginBean.ResultBean result = loginBean.getResult();
+                Log.i("TAG",result.getUserId()+"     "+result.getSessionId());
                 edit.putString("sessionId", result.getSessionId());
                 edit.putString("userId", result.getUserId()+"");
                 edit.commit();
 
                 //跳转到主界面进行商品展示
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                // intent.putExtra("result",result);
+                intent.putExtra("result", (Serializable) result);
                 startActivity(intent);
                 Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
                 finish();

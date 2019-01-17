@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -44,7 +45,13 @@ import com.onenice.www.view.IView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
+/**
+ *
+ * @描述 首页的查询页面
+ *
+ * @创建日期 2019/1/9 10:55
+ *
+ */
 public class HomeSeekFragment extends BaseFragment implements IView {
 
     private XRecyclerView seek_xrecy;
@@ -464,12 +471,45 @@ public class HomeSeekFragment extends BaseFragment implements IView {
         super.onDestroyView();
         //反注册
         EventBus.getDefault().unregister(this);
-        //解绑
-        mIpresenterImpl.Deatch();
         seek_search_edit.setText("");
 
+    }
+    /*private long exitTime=0;
+    private void getFocus() {
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
 
+                    //双击退出
+                    if (System.currentTimeMillis() - exitTime > 2000) {
+                        Toast.makeText(getActivity(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                        exitTime = System.currentTimeMillis();
+                    } else {
+                        getActivity().finish();
+                        System.exit(0);
+                    }
+                    return true;
+                }
 
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getFocus();
+    }*/
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //解绑
+        mIpresenterImpl.deatch();
     }
 
     @Override

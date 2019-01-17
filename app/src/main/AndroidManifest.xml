@@ -3,8 +3,9 @@
     package="com.onenice.www">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -14,24 +15,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity
-            android:name="com.onenice.www.activity.LoginActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-
+            android:name=".activity.LoginActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".activity.RegisterActivity"
-            android:windowSoftInputMode="adjustPan"
-            />
-        <activity android:name=".activity.MainActivity"
-            android:windowSoftInputMode="adjustPan"
-            ></activity>
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.CreationActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activity.AddressActivity" />
+        <activity android:name=".activity.UpdateAddressActivity" />
+        <activity android:name=".activity.NewAddressActivity" />
+        <activity android:name=".activity.PayActivity" />
+        <activity android:name=".activity.FootActivity" />
+        <activity android:name=".activity.MoneyActivity" />
+        <activity android:name=".activity.DataActivity"></activity>
     </application>
 
 </manifest>

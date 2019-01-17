@@ -30,7 +30,7 @@ public class IpresenterImpl implements Ipresenter{
     }
 
     //解绑
-    public void  Deatch(){
+    public void  deatch(){
         //解绑M层
         if (mImodelImpl!=null){
             mImodelImpl=null;
@@ -75,10 +75,26 @@ public class IpresenterImpl implements Ipresenter{
             }
         });
     }
-
+    //delete请求
     @Override
     public void deleteRequestIpresenter(String url, Class clazz) {
         mImodelImpl.deleteRequestModel(url , clazz , new ModelCallBack() {
+
+            @Override
+            public void success(Object object) {
+                mIView.success(object);
+            }
+
+            @Override
+            public void failure(String error) {
+                mIView.failure(error);
+            }
+        });
+    }
+    //post请求
+    @Override
+    public void putRequestIpresenter(String url, Map<String, String> params, Class clazz) {
+        mImodelImpl.putRequestModel(url , params , clazz, new ModelCallBack() {
 
             @Override
             public void success(Object object) {

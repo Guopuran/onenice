@@ -39,7 +39,7 @@ public class LoginBean implements Serializable {
         this.status = status;
     }
 
-    public static class ResultBean  {
+    public static class ResultBean implements Serializable {
         /**
          * headPic : http://172.17.8.100/images/small/head_pic/2018-11-21/20181121100733.jpg
          * nickName : OP_8mY65

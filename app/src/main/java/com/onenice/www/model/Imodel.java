@@ -18,4 +18,6 @@ public interface Imodel {
     void postRequestModel(String url, Map<String,String> params,Class clazz,ModelCallBack callBack);
     //delete请求
     void deleteRequestModel(String url,Class clazz,ModelCallBack callBack);
+    //put请求
+    void putRequestModel(String url, Map<String,String> params,Class clazz,ModelCallBack callBack);
 }

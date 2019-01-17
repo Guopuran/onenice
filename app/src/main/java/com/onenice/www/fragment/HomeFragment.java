@@ -5,12 +5,15 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.onenice.www.R;
 import com.onenice.www.base.BaseFragment;
+import com.onenice.www.bean.ComMsgBean;
 import com.onenice.www.bean.ShowShopMsgBean;
 import com.onenice.www.customview.CustomViewpagerHome;
 
@@ -99,7 +102,54 @@ public class HomeFragment extends BaseFragment {
             home_viewpager.setScroll(true);
             home_viewpager.setCurrentItem(2);
         }
+        if (msgBean.getFlag().equals("select")){
+            home_viewpager.setCurrentItem(1);
+        }
 
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getComid(ComMsgBean msgBean){
+        if (!(msgBean.getFlag().equals(""))){
+            home_viewpager.setScroll(false);
+            home_viewpager.setCurrentItem(0);
+        }
+        if (msgBean.getFlag().equals("back")){
+            //允许滑动
+            home_viewpager.setScroll(true);
+            home_viewpager.setCurrentItem(2);
+        }
+
+    }
+
+    private long exitTime=0;
+    private void getFocus(){
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode==KeyEvent.KEYCODE_BACK&&event.getAction()==KeyEvent.ACTION_DOWN){
+                    //home_viewpager.setCurrentItem(1);
+                    //双击退出
+                    if (System.currentTimeMillis()-exitTime>2000){
+                        Toast.makeText(getActivity(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                        exitTime=System.currentTimeMillis();
+                    }else{
+                        getActivity().finish();
+                        System.exit(0);
+                    }
+                    return true;
+                }
+
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getFocus();
     }
 
     @Override
@@ -120,4 +170,7 @@ public class HomeFragment extends BaseFragment {
             }
         });
     }
+
+
+
 }

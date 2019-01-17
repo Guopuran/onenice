@@ -75,7 +75,7 @@ public class ShowNavigationOneAdapter extends RecyclerView.Adapter<ShowNavigatio
 
 
 
-                    EventBus.getDefault().post(new ShowNavigationMsgBean(resultBean.getId(),"one"));
+                    EventBus.getDefault().postSticky(new ShowNavigationMsgBean(resultBean.getId(),"one"));
                 }
             });
         }

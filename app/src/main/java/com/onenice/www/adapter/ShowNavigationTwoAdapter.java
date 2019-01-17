@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.onenice.www.R;
+import com.onenice.www.bean.ComMsgBean;
 import com.onenice.www.bean.ShowNavigationMsgBean;
 import com.onenice.www.bean.ShowNavigationTwoBean;
 

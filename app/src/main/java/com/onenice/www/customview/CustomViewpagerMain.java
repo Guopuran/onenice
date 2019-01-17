@@ -24,7 +24,6 @@ public class CustomViewpagerMain extends ViewPager {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         return super.dispatchTouchEvent(ev);   // return true;不行
     }
-
     /**
      * 是否拦截
      * 拦截:会走到自己的onTouchEvent方法里面来

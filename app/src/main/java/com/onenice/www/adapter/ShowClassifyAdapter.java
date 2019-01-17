@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.onenice.www.R;
+import com.onenice.www.bean.ComMsgBean;
 import com.onenice.www.bean.ShowClassifyBean;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,11 +78,18 @@ public class ShowClassifyAdapter extends RecyclerView.Adapter<ShowClassifyAdapte
             item_num=itemView.findViewById(R.id.item_classify_num);
         }
 
-        public void getdata(ShowClassifyBean.ResultBean item, Context context, int i) {
+        public void getdata(final ShowClassifyBean.ResultBean item, Context context, int i) {
             item_image.setImageURI(Uri.parse(item.getMasterPic()));
             item_name.setText(item.getCommodityName());
             item_price.setText("￥"+item.getPrice());
             item_num.setText("已售"+item.getSaleNum()+"件");
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    EventBus.getDefault().postSticky(new ComMsgBean(item.getCommodityId(),"par"));
+                }
+            });
         }
     }
 }

@@ -5,19 +5,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RadioGroup;
 
 import com.onenice.www.R;
 import com.onenice.www.base.BaseActivity;
+import com.onenice.www.bean.ComMsgBean;
+import com.onenice.www.bean.CreationMsgBean;
 import com.onenice.www.bean.LoginBean;
+import com.onenice.www.bean.ShowShopMsgBean;
 import com.onenice.www.customview.CustomViewpagerMain;
 import com.onenice.www.fragment.BillFragment;
 import com.onenice.www.fragment.CircleFragment;
 import com.onenice.www.fragment.HomeFragment;
 import com.onenice.www.fragment.MyFragment;
 import com.onenice.www.fragment.ShopFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,6 +44,7 @@ public class MainActivity extends BaseActivity {
     private CustomViewpagerMain main_viewPager;
     private List<Fragment> list;
     private LoginBean.ResultBean result;
+    private HomeFragment homeFragment;
 
     @Override
     protected int getLayoutResId() {
@@ -48,7 +57,8 @@ public class MainActivity extends BaseActivity {
         group_bottom = findViewById(R.id.main_buttom_group);
         main_viewPager = findViewById(R.id.main_viewpager);
         list=new ArrayList<>();
-
+        //注册
+        EventBus.getDefault().register(this);
         Intent intent=getIntent();
         result = (LoginBean.ResultBean) intent.getSerializableExtra("result");
 
@@ -108,6 +118,7 @@ public class MainActivity extends BaseActivity {
                 switch (i){
                     case 0:
                         group_bottom.check(R.id.home_button_home);
+                        EventBus.getDefault().post(new ShowShopMsgBean("moren","select"));
                         break;
                     case 1:
                         group_bottom.check(R.id.home_button_circle);
@@ -133,7 +144,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void addFragment() {
-        list.add(new HomeFragment());
+        homeFragment = new HomeFragment();
+        list.add(homeFragment);
         list.add(new CircleFragment());
         list.add(new ShopFragment());
         list.add(new BillFragment());
@@ -167,5 +179,25 @@ public class MainActivity extends BaseActivity {
             }
         }
         return super.onTouchEvent(event);
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getComid(CreationMsgBean msgBean) {
+        if (msgBean.getFlag().equals("send")) {
+            main_viewPager.setCurrentItem(3);
+            EventBus.getDefault().postSticky("open");
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //反注册
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
     }
 }
