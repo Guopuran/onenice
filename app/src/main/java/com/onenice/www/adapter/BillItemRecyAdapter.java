@@ -112,8 +112,22 @@ public class BillItemRecyAdapter extends RecyclerView.Adapter<BillItemRecyAdapte
                 text_num.setText("* "+item.getCommodityCount()+" *");
             }
             if (button_evaluate!=null){
-
+                button_evaluate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mClickEvaluate!=null){
+                            mClickEvaluate.setEvaluat(list,getAdapterPosition());
+                        }
+                    }
+                });
             }
         }
+    }
+    public ClickEvaluate mClickEvaluate;
+    public void setEva(ClickEvaluate mClickEvaluate){
+        this.mClickEvaluate=mClickEvaluate;
+    }
+    public interface ClickEvaluate{
+        void setEvaluat(List<BillShopBean.OrderListBean.DetailListBean> list,int position);
     }
 }

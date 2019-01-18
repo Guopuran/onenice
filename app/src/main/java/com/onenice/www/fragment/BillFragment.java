@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.onenice.www.R;
+import com.onenice.www.activity.EvaluatActivity;
 import com.onenice.www.activity.PayActivity;
 import com.onenice.www.adapter.BillXrecyAdapter;
 import com.onenice.www.bean.CreationMsgBean;
@@ -27,6 +28,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -143,6 +145,18 @@ public class BillFragment extends BaseFragment implements IView,View.OnClickList
                 Map<String,String> params=new HashMap<>();
                 params.put("orderId",orderId);
                 mIpresenterImpl.putRequestIpresenter(Apis.SHOW_NEXT_SHOP_URL,params,NextBean.class);
+            }
+        });
+        billXrecyAdapter.setEva(new BillXrecyAdapter.ClickEvaluate() {
+            @Override
+            public void setEvaluat(List<BillShopBean.OrderListBean.DetailListBean> list, int position) {
+                Intent intent = new Intent(getActivity(),EvaluatActivity.class);
+                String[] split = list.get(position).getCommodityPic().split("\\,");
+                intent.putExtra("image",split[0]);
+                intent.putExtra("id",list.get(position).getCommodityId()+"");
+                intent.putExtra("name",list.get(position).getCommodityName());
+                intent.putExtra("price","￥"+list.get(position).getCommodityPrice());
+                startActivity(intent);
             }
         });
     }

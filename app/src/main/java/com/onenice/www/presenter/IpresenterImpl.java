@@ -9,6 +9,8 @@ import com.onenice.www.model.ImodelImpl;
 import com.onenice.www.model.ModelCallBack;
 import com.onenice.www.view.IView;
 
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -107,5 +109,66 @@ public class IpresenterImpl implements Ipresenter{
             }
         });
     }
+
+    @Override
+    public void postImageRequestIpresenter(String url, List<File> image_list, Class clazz) {
+        mImodelImpl.postImageRequestModel(url, image_list, clazz, new ModelCallBack() {
+            @Override
+            public void success(Object object) {
+                mIView.success(object);
+            }
+
+            @Override
+            public void failure(String error) {
+                mIView.failure(error);
+            }
+        });
+    }
+
+    @Override
+    public void postimageRequestIpresenter(String url, File file, Class clazz) {
+        mImodelImpl.postimageRequestModel(url, file, clazz, new ModelCallBack() {
+            @Override
+            public void success(Object object) {
+                mIView.success(object);
+            }
+
+            @Override
+            public void failure(String error) {
+                mIView.failure(error);
+            }
+        });
+    }
+
+    @Override
+    public void postImageConRequestIpresenter(String url, Map<String, String> params, File file, Class clazz) {
+        mImodelImpl.postImageConRequestModel(url,params ,file, clazz, new ModelCallBack() {
+            @Override
+            public void success(Object object) {
+                mIView.success(object);
+            }
+
+            @Override
+            public void failure(String error) {
+                mIView.failure(error);
+            }
+        });
+    }
+
+    @Override
+    public void postDuoConRequestIpresenter(String url, Map<String, String> params, List<File> list, Class clazz) {
+        mImodelImpl.postDuoConRequestModel(url,params ,list, clazz, new ModelCallBack() {
+            @Override
+            public void success(Object object) {
+                mIView.success(object);
+            }
+
+            @Override
+            public void failure(String error) {
+                mIView.failure(error);
+            }
+        });
+    }
+
 
 }

@@ -1,5 +1,9 @@
 package com.onenice.www.presenter;
 
+import com.onenice.www.model.ModelCallBack;
+
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,4 +23,12 @@ public interface Ipresenter {
     void deleteRequestIpresenter(String url, Class clazz);
     //put请求
     void putRequestIpresenter(String url, Map<String,String> params,Class clazz);
+    //上传图片
+    void postImageRequestIpresenter(String url, List<File> image_list,Class clazz);
+    void postimageRequestIpresenter(String url,File file,Class clazz);
+    //图文上传
+    void postImageConRequestIpresenter(String url, Map<String,String> params ,File file,Class clazz);
+    //多张图片
+    void postDuoConRequestIpresenter(String url,Map<String,String> params, List<File> list , Class clazz);
+
 }

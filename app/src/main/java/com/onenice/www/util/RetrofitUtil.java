@@ -3,17 +3,23 @@ package com.onenice.www.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.onenice.www.MyApplication;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -131,6 +137,64 @@ public class RetrofitUtil {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getObserver(callBack));
     }
+    //图片上传
+    public void postImage(String url, List<File> image_list,ICallBack callBack){
+        //组装pathmap对象
+        Map<String, RequestBody> map=new HashMap<>();
+        for (File file : image_list){
+            RequestBody fileBody=RequestBody.create(MediaType.parse("multipart/form-data"),file);
+            map.put("image",fileBody);
+        }
+
+        mObservedApis.postmap(url,map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getObserver(callBack));
+
+    }
+
+    //图片上传
+    public void postimage(String url, File file,ICallBack callBack){
+
+      RequestBody requestBody=RequestBody.create(MediaType.parse("multipart/form-data"),file);
+        MultipartBody.Part filePart=MultipartBody.Part.createFormData("image",file.getName(),requestBody);
+        mObservedApis.postImage(url,filePart)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getObserver(callBack));
+
+    }
+
+    //图文上传
+    public void postimagecon(String url,Map<String,String> params, File file,ICallBack callBack){
+
+        RequestBody requestBody=RequestBody.create(MediaType.parse("multipart/form-data"),file);
+        MultipartBody.Part filePart=MultipartBody.Part.createFormData("image",file.getName(),requestBody);
+        mObservedApis.postImageContent(url,params,filePart)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getObserver(callBack));
+
+    }
+    //多图文上传
+    public void postduocon(String url,Map<String,String> params, List<File> list,ICallBack callBack){
+        MultipartBody.Part[] parts=new MultipartBody.Part[list.size()];
+        int index=0;
+        for (File file: list){
+            RequestBody requestBody=RequestBody.create(MediaType.parse("multipart/form-data"),file);
+            MultipartBody.Part filePart=MultipartBody.Part.createFormData("image",file.getName(),requestBody);
+            parts[index]=filePart;
+            index++;
+        }
+
+        mObservedApis.postDuoContent(url,params,parts)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(getObserver(callBack));
+
+    }
+
+
 
 
     private Observer getObserver(final ICallBack callBack) {
@@ -146,6 +210,7 @@ public class RetrofitUtil {
             public void onError(Throwable e) {
                 if (callBack!=null){
                     callBack.failure(e.getMessage());
+                    Log.i("Tag",e.getMessage());
                 }
             }
 

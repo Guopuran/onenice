@@ -1,5 +1,7 @@
 package com.onenice.www.model;
 
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,4 +22,13 @@ public interface Imodel {
     void deleteRequestModel(String url,Class clazz,ModelCallBack callBack);
     //put请求
     void putRequestModel(String url, Map<String,String> params,Class clazz,ModelCallBack callBack);
+    //上传图片
+    void postImageRequestModel(String url, List<File> image_list , Class clazz ,ModelCallBack callBack);
+    void postimageRequestModel(String url, File file , Class clazz ,ModelCallBack callBack);
+    //上传图文
+    void postImageConRequestModel(String url,Map<String,String> params, File file , Class clazz ,ModelCallBack callBack);
+    //多图
+    void postDuoConRequestModel(String url,Map<String,String> params, List<File> list , Class clazz ,ModelCallBack callBack);
+
+
 }

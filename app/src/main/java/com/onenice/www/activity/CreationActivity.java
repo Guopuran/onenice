@@ -3,6 +3,7 @@ package com.onenice.www.activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -175,8 +176,7 @@ public class CreationActivity extends BaseActivity implements IView {
     private void initPoPupwindow() {
         // 用于PopupWindow的View
         View contentView=LayoutInflater.from(this).inflate(R.layout.creation_bill_pop, null, false);
-        text_photo = contentView.findViewById(R.id.pop_image_photo);
-        text_camera = contentView.findViewById(R.id.pop_image_camera);
+
         pop_recy = contentView.findViewById(R.id.pop_creation_recy);
         // 创建PopupWindow对象，其中：
         // 第一个参数是用于PopupWindow中的View，第二个参数是PopupWindow的宽度，
@@ -206,32 +206,8 @@ public class CreationActivity extends BaseActivity implements IView {
             }
         });
         popupWindow.dismiss();
-        //点击拍照
-        clickPhoto();
-        //点击选择相册
-        clickCamera();
+
     }
-
-    //点击拍照
-    private void clickPhoto() {
-        text_photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-    }
-
-    //点击选择相册
-    private void clickCamera() {
-        text_camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-    }
-
     private void initAdaaressUrl() {
         mIpresenterImpl.getRequestIpresenter(Apis.SHOW_SELECT_ADDRESS_URL,SelectAddressBean.class);
     }
@@ -306,5 +282,6 @@ public class CreationActivity extends BaseActivity implements IView {
     public void failure(String error) {
 
     }
+
 
 }

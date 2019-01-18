@@ -8,6 +8,8 @@ import com.google.gson.Gson;
 import com.onenice.www.MyApplication;
 import com.onenice.www.util.RetrofitUtil;
 
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -101,6 +103,87 @@ public class ImodelImpl implements Imodel {
             }
         });
     }
+
+    @Override
+    public void postImageRequestModel(String url, List<File> image_list, final Class clazz, final ModelCallBack callBack) {
+        if (!isNetWork()){
+            callBack.failure("网络状态不可用");
+            return;
+        }
+        RetrofitUtil.getInstance().postImage(url, image_list, new RetrofitUtil.ICallBack() {
+            @Override
+            public void success(String result) {
+                Object object = getGson(result, clazz);
+                callBack.success(object);
+            }
+
+            @Override
+            public void failure(String error) {
+                callBack.failure(error);
+            }
+        });
+    }
+
+    @Override
+    public void postimageRequestModel(String url, File file, final Class clazz, final ModelCallBack callBack) {
+        if (!isNetWork()){
+            callBack.failure("网络状态不可用");
+            return;
+        }
+        RetrofitUtil.getInstance().postimage(url, file, new RetrofitUtil.ICallBack() {
+            @Override
+            public void success(String result) {
+                Object object = getGson(result, clazz);
+                callBack.success(object);
+            }
+
+            @Override
+            public void failure(String error) {
+                callBack.failure(error);
+            }
+        });
+    }
+
+    @Override
+    public void postImageConRequestModel(String url, Map<String, String> params, File file, final Class clazz, final ModelCallBack callBack) {
+        if (!isNetWork()){
+            callBack.failure("网络状态不可用");
+            return;
+        }
+        RetrofitUtil.getInstance().postimagecon(url,params ,file, new RetrofitUtil.ICallBack() {
+            @Override
+            public void success(String result) {
+                Object object = getGson(result, clazz);
+                callBack.success(object);
+            }
+
+            @Override
+            public void failure(String error) {
+                callBack.failure(error);
+            }
+        });
+    }
+
+    @Override
+    public void postDuoConRequestModel(String url, Map<String, String> params, List<File> list, final Class clazz, final ModelCallBack callBack) {
+        if (!isNetWork()){
+            callBack.failure("网络状态不可用");
+            return;
+        }
+        RetrofitUtil.getInstance().postduocon(url,params ,list, new RetrofitUtil.ICallBack() {
+            @Override
+            public void success(String result) {
+                Object object = getGson(result, clazz);
+                callBack.success(object);
+            }
+
+            @Override
+            public void failure(String error) {
+                callBack.failure(error);
+            }
+        });
+    }
+
     //gson解析
     private Object getGson(String result, Class clazz) {
         Object o = new Gson().fromJson(result, clazz);

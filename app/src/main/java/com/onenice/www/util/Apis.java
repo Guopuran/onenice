@@ -68,4 +68,14 @@ public class Apis {
     public static final String SHOW_UPDATE_NAME_URL="user/verify/v1/modifyUserNick";
     //修改密码的接口
     public static final String SHOW_UPDATE_PASS_URL="user/verify/v1/modifyUserPwd";
+    //上传头像的接口
+    public static final String SHOW_IMAGE_URL="user/verify/v1/modifyHeadPic";
+    //展示我的圈子的接口
+    public static final String SHOW_SELECT_CIRCLE_URL="circle/verify/v1/findMyCircleById?page=%d&count=%d";
+    //发布圈子的接口
+    public static final String SHOW_NEXT_CIRCLE_URL="circle/verify/v1/releaseCircle";
+    //删除圈子的接口
+    public static final String SHOW_DELETE_CIRCLE_URL="circle/verify/v1/deleteCircle?circleId=%d";
+    //发布评论的接口
+    public static final String SHOW_NEXT_COMMENT_URL="commodity/verify/v1/addCommodityComment";
 }

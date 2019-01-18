@@ -210,6 +210,14 @@ public class BillXrecyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         BillItemRecyAdapter billItemRecyAdapter=new BillItemRecyAdapter(context,status);
         billItemRecyAdapter.setList(item.getDetailList());
         recy.setAdapter(billItemRecyAdapter);
+        billItemRecyAdapter.setEva(new BillItemRecyAdapter.ClickEvaluate() {
+            @Override
+            public void setEvaluat(List<BillShopBean.OrderListBean.DetailListBean> list, int position) {
+                if (mClickEvaluate!=null){
+                    mClickEvaluate.setEvaluat(list,position);
+                }
+            }
+        });
     }
     //待收货的viewholder
     private class TaskViewHolder extends RecyclerView.ViewHolder{
@@ -264,28 +272,34 @@ public class BillXrecyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     //待评价的viewholder
     private class AppraiseViewHolder extends RecyclerView.ViewHolder{
         private TextView appraise_text_orderId;
-        private TextView appraise_text_time;
+        //private TextView appraise_text_time;
         private RecyclerView appraise_recy;
         private ImageView appraise_image_more;
         public AppraiseViewHolder(@NonNull View itemView) {
             super(itemView);
             appraise_text_orderId=itemView.findViewById(R.id.xrecy_appraise_item_text_orderId);
-            appraise_text_time=itemView.findViewById(R.id.xrecy_appraise_item_text_orderTime);
+            //appraise_text_time=itemView.findViewById(R.id.xrecy_appraise_item_text_orderTime);
             appraise_recy=itemView.findViewById(R.id.xrecy_appraise_item_recy);
             appraise_image_more=itemView.findViewById(R.id.xrecy_appraise_item_image_more);
         }
 
         public void getdata(BillShopBean.OrderListBean item, Context context, int i) {
             appraise_text_orderId.setText(item.getOrderId());
-            String times = new SimpleDateFormat("yyyy-MM-dd hh:mm").format(
+            /*String times = new SimpleDateFormat("yyyy-MM-dd hh:mm").format(
                     new java.util.Date(item.getOrderTime()));
-            appraise_text_time.setText(times);
+            appraise_text_time.setText(times);*/
             initRecy(context,appraise_recy,i,item,3);
         }
 
 
     }
-
+    public ClickEvaluate mClickEvaluate;
+    public void setEva(ClickEvaluate mClickEvaluate){
+        this.mClickEvaluate=mClickEvaluate;
+    }
+    public interface ClickEvaluate{
+        void setEvaluat(List<BillShopBean.OrderListBean.DetailListBean> list,int position);
+    }
 
     //已完成的viewholder
     private class FinishViewHolder extends RecyclerView.ViewHolder{

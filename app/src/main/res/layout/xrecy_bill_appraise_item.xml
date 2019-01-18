@@ -40,16 +40,5 @@
         android:layout_below="@id/text_ding"
         android:layout_marginTop="@dimen/dp_10"
         ></android.support.v7.widget.RecyclerView>
-        <TextView
-            android:id="@+id/xrecy_appraise_item_text_orderTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/xrecy_finish_item_recy"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/dp_20"
-            android:textSize="@dimen/sp_12"
-            android:textColor="#666666"
-            android:text="egbrbr"
-        />
+
 </RelativeLayout>
