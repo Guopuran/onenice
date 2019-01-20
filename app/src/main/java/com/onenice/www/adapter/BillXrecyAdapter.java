@@ -203,7 +203,7 @@ public class BillXrecyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public interface ClickDelete{
         void delete(String orderId,int position);
     }
-    private void initRecy(Context context, RecyclerView recy, int i, BillShopBean.OrderListBean item,int status) {
+    private void initRecy(Context context, RecyclerView recy, final int i, final BillShopBean.OrderListBean item, int status) {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         recy.setLayoutManager(linearLayoutManager);
@@ -214,7 +214,7 @@ public class BillXrecyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             @Override
             public void setEvaluat(List<BillShopBean.OrderListBean.DetailListBean> list, int position) {
                 if (mClickEvaluate!=null){
-                    mClickEvaluate.setEvaluat(list,position);
+                    mClickEvaluate.setEvaluat(list,position,item,i);
                 }
             }
         });
@@ -298,33 +298,42 @@ public class BillXrecyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.mClickEvaluate=mClickEvaluate;
     }
     public interface ClickEvaluate{
-        void setEvaluat(List<BillShopBean.OrderListBean.DetailListBean> list,int position);
+        void setEvaluat(List<BillShopBean.OrderListBean.DetailListBean> list, int position, BillShopBean.OrderListBean item, int i);
     }
 
     //已完成的viewholder
     private class FinishViewHolder extends RecyclerView.ViewHolder{
         private TextView finish_text_orderId;
-        //private TextView finish_text_time;
+        private TextView finish_text_time;
         private RecyclerView finish_recy;
         private ImageView finish_image_more;
         public FinishViewHolder(@NonNull View itemView) {
             super(itemView);
             finish_text_orderId=itemView.findViewById(R.id.xrecy_finish_item_text_orderId);
-            //finish_text_time=itemView.findViewById(R.id.xrecy_finish_item_text_orderTime);
+            finish_text_time=itemView.findViewById(R.id.xrecy_finish_item_text_orderTime);
             finish_recy=itemView.findViewById(R.id.xrecy_finish_item_recy);
             finish_image_more=itemView.findViewById(R.id.xrecy_finish_item_image_more);
 
 
         }
 
-        public void getdata(BillShopBean.OrderListBean item, Context context, int i) {
+        public void getdata(final BillShopBean.OrderListBean item, Context context, final int i) {
             finish_text_orderId.setText(item.getOrderId());
-            /*String times = new SimpleDateFormat("yyyy-MM-dd hh:mm").format(
+            String times = new SimpleDateFormat("yyyy-MM-dd hh:mm").format(
                     new java.util.Date(item.getOrderTime()));
-            finish_text_time.setText(times);*/
+            finish_text_time.setText(times);
             initRecy(context,finish_recy,i,item,9);
+            finish_image_more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mClickDelete!=null){
+                        mClickDelete.delete(item.getOrderId(),i);
+                    }
+
+                }
+            });
         }
 
-
     }
+
 }

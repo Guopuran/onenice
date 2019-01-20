@@ -174,7 +174,7 @@ public class UpdateAddressActivity extends BaseActivity implements IView {
                 .titleBackgroundColor("#FFFFFF")
                 .confirTextColor("#ff0000")
                 .cancelTextColor("#696969")
-                .province("北京市")
+                .province(" 北京市")
                 .city("北京市")
                 .district("昌平区")
                 .textColor(Color.parseColor("#000000"))

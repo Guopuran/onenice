@@ -22,7 +22,7 @@ public class MoneyActivity extends BaseActivity implements IView {
 
     private IpresenterImpl mIpresenterImpl;
     private XRecyclerView money_xrecy;
-    private final int COUNT = 1;
+    private final int COUNT = 10;
     private int page;
     private  boolean money_flag;
     private TextView text_qian;
@@ -98,11 +98,11 @@ public class MoneyActivity extends BaseActivity implements IView {
         if (object instanceof MoneyBean){
             MoneyBean moneyBean= (MoneyBean) object;
             text_qian.setText(moneyBean.getResult().getBalance()+"");
-            /*if (page==1){
+            if (page==1){
                 moneyAdapter.setList(moneyBean.getResult().getDetailList());
             }else{
                 moneyAdapter.addList(moneyBean.getResult().getDetailList());
-            }*/
+            }
             //停止刷新加载
             money_xrecy.refreshComplete();
             money_xrecy.loadMoreComplete();

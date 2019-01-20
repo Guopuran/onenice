@@ -143,8 +143,10 @@ public class HomeParticularsFragment extends BaseFragment implements IView {
             addId=commodityId;
             //Toast.makeText(getActivity(), commodityId+"", Toast.LENGTH_SHORT).show();
             setUrl(commodityId);
+            //清除缓存
             EventBus.getDefault().removeStickyEvent(ComMsgBean.class);
-        }
+
+    }
 
     }
 

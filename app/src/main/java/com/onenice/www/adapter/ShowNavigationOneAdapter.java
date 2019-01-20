@@ -72,9 +72,6 @@ public class ShowNavigationOneAdapter extends RecyclerView.Adapter<ShowNavigatio
                 @Override
                 public void onClick(View v) {
                     //判断集合是否为空，集合是否有内容（集合为空表示没有 new 这个集合对象）
-
-
-
                     EventBus.getDefault().postSticky(new ShowNavigationMsgBean(resultBean.getId(),"one"));
                 }
             });

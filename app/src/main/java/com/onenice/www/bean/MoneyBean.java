@@ -5,9 +5,23 @@ import java.util.List;
 public class MoneyBean {
 
 
-    String message;
-    String status;
-    Result result;
+    /**
+     *  result : {"balance":99999999,"detailList":[{"amount":2,"createTime":1542476199000}]}
+     * message : 查询成功
+     * status : 0000
+     */
+
+    private resultBean result;
+    private String message;
+    private String status;
+
+    public resultBean getResult() {
+        return result;
+    }
+
+    public void setResult(resultBean result) {
+        this.result = result;
+    }
 
     public String getMessage() {
         return message;
@@ -25,43 +39,45 @@ public class MoneyBean {
         this.status = status;
     }
 
-    public Result getResult() {
-        return result;
-    }
+    public static class resultBean {
+        /**
+         * balance : 99999999
+         * detailList : [{"amount":2,"createTime":1542476199000}]
+         */
 
-    public void setResult(Result result) {
-        this.result = result;
-    }
+        private int balance;
+        private List<DetailListBean> detailList;
 
-    public class Result{
-        double balance;
-        List<Detail> detailList;
-
-        public double getBalance() {
+        public int getBalance() {
             return balance;
         }
 
-        public void setBalance(double balance) {
+        public void setBalance(int balance) {
             this.balance = balance;
         }
 
-        public List<Detail> getDetailList() {
+        public List<DetailListBean> getDetailList() {
             return detailList;
         }
 
-        public void setDetailList(List<Detail> detailList) {
+        public void setDetailList(List<DetailListBean> detailList) {
             this.detailList = detailList;
         }
 
-        public class Detail{
-            double amount;
-            long createTime;
+        public static class DetailListBean {
+            /**
+             * amount : 2
+             * createTime : 1542476199000
+             */
 
-            public double getAmount() {
+            private int amount;
+            private long createTime;
+
+            public int getAmount() {
                 return amount;
             }
 
-            public void setAmount(double amount) {
+            public void setAmount(int amount) {
                 this.amount = amount;
             }
 

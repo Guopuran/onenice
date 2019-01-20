@@ -28,6 +28,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         if (mlist!=null){
             list.addAll(mlist);
         }
+        if (list.size()>10){
+            return ;
+        }
         notifyDataSetChanged();
     }
 

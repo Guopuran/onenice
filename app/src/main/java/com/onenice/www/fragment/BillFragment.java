@@ -1,6 +1,8 @@
 package com.onenice.www.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.view.KeyEvent;
@@ -27,6 +29,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -123,9 +126,24 @@ public class BillFragment extends BaseFragment implements IView,View.OnClickList
         //删除订单
         billXrecyAdapter.setDelete(new BillXrecyAdapter.ClickDelete() {
             @Override
-            public void delete(String orderId, int position) {
-                mIpresenterImpl.deleteRequestIpresenter(String.format(Apis.SHOW_DELETE_BILL_URL,orderId),DeleteBillBean.class);
-                index = position;
+            public void delete(final String orderId, final int position) {
+
+                final AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+                builder.setTitle("确定删除订单吗？");
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mIpresenterImpl.deleteRequestIpresenter(String.format(Apis.SHOW_DELETE_BILL_URL,orderId),DeleteBillBean.class);
+                        index = position;
+                    }
+                });
+                builder.setNeutralButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.show();
+
             }
         });
         //付款
@@ -149,11 +167,12 @@ public class BillFragment extends BaseFragment implements IView,View.OnClickList
         });
         billXrecyAdapter.setEva(new BillXrecyAdapter.ClickEvaluate() {
             @Override
-            public void setEvaluat(List<BillShopBean.OrderListBean.DetailListBean> list, int position) {
+            public void setEvaluat(List<BillShopBean.OrderListBean.DetailListBean> list, int position, BillShopBean.OrderListBean item, int i) {
                 Intent intent = new Intent(getActivity(),EvaluatActivity.class);
                 String[] split = list.get(position).getCommodityPic().split("\\,");
                 intent.putExtra("image",split[0]);
                 intent.putExtra("id",list.get(position).getCommodityId()+"");
+                intent.putExtra("orderId",item.getOrderId());
                 intent.putExtra("name",list.get(position).getCommodityName());
                 intent.putExtra("price","￥"+list.get(position).getCommodityPrice());
                 startActivity(intent);

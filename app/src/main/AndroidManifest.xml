@@ -16,6 +16,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.onenice.www"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
@@ -35,15 +45,29 @@
         <activity
             android:name=".activity.CreationActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activity.AddressActivity" />
-        <activity android:name=".activity.UpdateAddressActivity" />
-        <activity android:name=".activity.NewAddressActivity" />
-        <activity android:name=".activity.PayActivity" />
+        <activity android:name=".activity.AddressActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
+        <activity android:name=".activity.UpdateAddressActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
+        <activity android:name=".activity.NewAddressActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
+        <activity android:name=".activity.PayActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity android:name=".activity.FootActivity" />
         <activity android:name=".activity.MoneyActivity" />
-        <activity android:name=".activity.DataActivity" />
-        <activity android:name=".activity.EvaluatActivity" />
-        <activity android:name=".activity.CircleActivity"></activity>
+        <activity android:name=".activity.DataActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
+        <activity android:name=".activity.EvaluatActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
+        <activity android:name=".activity.CircleActivity"
+            android:windowSoftInputMode="adjustPan"
+            ></activity>
     </application>
 
 </manifest>

@@ -78,8 +78,10 @@ public class SelectCircleAdapter extends RecyclerView.Adapter<SelectCircleAdapte
 
         public void getdata(SelectCircleBean.ResultBean item, Context context, int i) {
 
-                String[] split = item.getHeadPic().split("\\,");
+            if (item.getImage()!=null){
+                String[] split = item.getImage().split("\\,");
                 image.setImageURI(Uri.parse(split[0]));
+            }
             text_content.setText(item.getContent());
             text_num.setText(item.getGreatNum()+"");
             String times = new SimpleDateFormat("yyyy-MM-dd hh:mm").format(

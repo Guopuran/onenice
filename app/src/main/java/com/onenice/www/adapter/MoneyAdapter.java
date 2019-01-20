@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoneyAdapter extends RecyclerView.Adapter<MoneyAdapter.ViewHolder> {
-    private List<MoneyBean.Result.Detail> list;
+    private List<MoneyBean.resultBean.DetailListBean> list;
     private Context context;
 
     public MoneyAdapter(Context context) {
@@ -24,22 +24,22 @@ public class MoneyAdapter extends RecyclerView.Adapter<MoneyAdapter.ViewHolder> 
         list=new ArrayList<>();
     }
 
-    public void setList(List<MoneyBean.Result.Detail> mlist) {
-        mlist.clear();
+    public void setList(List<MoneyBean.resultBean.DetailListBean> mlist) {
+        list.clear();
         if (mlist!=null){
             list.addAll(mlist);
         }
         notifyDataSetChanged();
     }
 
-    public void addList(List<MoneyBean.Result.Detail> mlist) {
+    public void addList(List<MoneyBean.resultBean.DetailListBean> mlist) {
         if (mlist!=null){
             list.addAll(mlist);
         }
         notifyDataSetChanged();
     }
-    public MoneyBean.Result.Detail getItem(int position){
-        return list.remove(position);
+    public MoneyBean.resultBean.DetailListBean getItem(int position){
+        return list.get(position);
     }
     @NonNull
     @Override
@@ -69,7 +69,7 @@ public class MoneyAdapter extends RecyclerView.Adapter<MoneyAdapter.ViewHolder> 
 
         }
 
-        public void getdata(MoneyBean.Result.Detail item, Context context, int i) {
+        public void getdata(MoneyBean.resultBean.DetailListBean item, Context context, int i) {
             text_price.setText(item.getAmount()+"");
             String times = new SimpleDateFormat("yyyy-MM-dd").format(
                     new java.util.Date(item.getCreateTime()));

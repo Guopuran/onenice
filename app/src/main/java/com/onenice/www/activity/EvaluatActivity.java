@@ -31,6 +31,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.onenice.www.R;
 import com.onenice.www.adapter.ImageAdapter;
 import com.onenice.www.base.BaseActivity;
+import com.onenice.www.bean.CommentBean;
 import com.onenice.www.bean.ImageBean;
 import com.onenice.www.bean.NextBean;
 import com.onenice.www.bean.NextCircleBean;
@@ -43,7 +44,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ *
+ * @描述  评价的模板
+ *
+ * @创建日期 2019/1/18 16:52
+ *
+ */
 public class EvaluatActivity extends BaseActivity implements View.OnClickListener,IView {
 
 
@@ -54,8 +61,6 @@ public class EvaluatActivity extends BaseActivity implements View.OnClickListene
     private EditText text_content;
     private String id;
     private Dialog first_dialog;
-    private Dialog second_dialog;
-    private Dialog third_dialog;
     private IpresenterImpl mIpresenterImpl;
 
     private final int PHOTO_FLAG=1;
@@ -63,15 +68,13 @@ public class EvaluatActivity extends BaseActivity implements View.OnClickListene
     private final int CAIJIAN_FLAG=3;
 
     private String path=Environment.getExternalStorageDirectory()+"/header_image.png";
-    private ImageView image_first;
-    private ImageView image_second;
-    private ImageView image_third;
     private File first_file;
     private RecyclerView image_recy;
 
     private ImageAdapter imageAdapter;
     private List<File> file_list=new ArrayList<>();
     private CheckBox tongbu;
+    private String orderId;
 
     @Override
     protected int getLayoutResId() {
@@ -122,8 +125,9 @@ public class EvaluatActivity extends BaseActivity implements View.OnClickListene
                String text = text_content.getText().toString();
                 Map<String,String> params_com=new HashMap<>();
                 params_com.put("commodityId",id);
+                params_com.put("orderId",orderId);
                 params_com.put("content",text);
-                mIpresenterImpl.postDuoConRequestIpresenter(Apis.SHOW_NEXT_CIRCLE_URL,params_com,file_list,NextCircleBean.class);
+                mIpresenterImpl.postDuoConRequestIpresenter(Apis.SHOW_NEXT_COMMENT_URL,params_com,file_list,CommentBean.class);
                 if (tongbu.isChecked()){
                     Map<String,String> params=new HashMap<>();
                     params.put("commodityId",id);
@@ -140,6 +144,7 @@ public class EvaluatActivity extends BaseActivity implements View.OnClickListene
         String image = intent.getStringExtra("image");
         String name = intent.getStringExtra("name");
         String price = intent.getStringExtra("price");
+        orderId = intent.getStringExtra("orderId");
         id = intent.getStringExtra("id");
         eva_image.setImageURI(Uri.parse(image));
         text_name.setText(name);
@@ -152,15 +157,17 @@ public class EvaluatActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            //打开相机
             case R.id.first_takePhoto:
                 getPhoto();
                 first_dialog.dismiss();
-                Toast.makeText(this, "点击了拍照1", Toast.LENGTH_SHORT).show();
                 break;
+            //打开相册
             case R.id.first_choosePhoto:
                 getCamera();
                 first_dialog.dismiss();
                 break;
+            //取消
             case R.id.first_btn_cancel:
                 first_dialog.dismiss();
                 break;
@@ -173,9 +180,17 @@ public class EvaluatActivity extends BaseActivity implements View.OnClickListene
             NextCircleBean nextCircleBean= (NextCircleBean) object;
             if (nextCircleBean.getStatus().equals("0000")){
                 Toast.makeText(this, nextCircleBean.getMessage(), Toast.LENGTH_SHORT).show();
-                finish();
             }else{
                 Toast.makeText(this, nextCircleBean.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+        if (object instanceof CommentBean){
+            CommentBean commentBean= (CommentBean) object;
+            if (commentBean.getStatus().equals("0000")){
+                Toast.makeText(this, commentBean.getMessage(), Toast.LENGTH_SHORT).show();
+                finish();
+            }else{
+                Toast.makeText(this, commentBean.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }

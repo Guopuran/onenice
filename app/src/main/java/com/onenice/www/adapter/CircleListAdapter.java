@@ -91,7 +91,10 @@ public class CircleListAdapter extends RecyclerView.Adapter<CircleListAdapter.Vi
         }
         public void getdata(final CircleListBean.ResultBean item, Context context, final int i) {
             Glide.with(context).load(item.getHeadPic()).into(circle_image_header);
-            Glide.with(context).load(item.getImage()).into(circle_image_content);
+            if (item.getImage()!=null){
+                String[] split = item.getImage().split("\\,");
+                Glide.with(context).load(split[0]).into(circle_image_content);
+            }
             if (item.getWhetherGreat()==1){
 
                 Glide.with(context).load(R.mipmap.common_btn_prise_s).into(circle_image_like);
